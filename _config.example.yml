@@ -93,10 +93,6 @@ theme_config:
   gravatar:
     email: liurenlin77@gmail.com
 
-  baidu_analytics:
-    enabled: true
-    id: 9d01b2b01d942b75a2ba1d4de3ff9f65
-
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
