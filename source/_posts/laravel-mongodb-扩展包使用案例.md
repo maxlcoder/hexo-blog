@@ -1,12 +1,16 @@
 ---
 title: laravel mongodb 扩展包使用案例
 date: 2019-09-19 09:50:03
-tags:
+categories:
+- laravel
+tags: 
+- laravel
+- mongodb
 ---
 
 
 > 本文使用 `jenssegers/mongodb` 做案例演示，  
-> 大部分的使用方式和 `SQL` 类的使用类似，这里列举一些常见的用法，和一些比较特殊的用法
+> 大部分的使用方式和 `SQL` 的使用类似，这里列举一些常见的用法，和一些比较特殊的用法
 
 1. 添加
 

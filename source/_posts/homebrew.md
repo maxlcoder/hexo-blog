@@ -1,7 +1,10 @@
 ---
 title: homebrew
 date: 2019-09-07 01:26:14
+categories:
+- macOS
 tags:
+- brew
 ---
 
 1. 什么是 `homebrew` ?

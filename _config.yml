@@ -8,7 +8,7 @@ subtitle:
 description:
 keywords:
 author: maxlcoder
-language: en
+language: zh-CN
 timezone:
 
 # URL
@@ -76,8 +76,25 @@ pagination_dir: page
 # theme: landscape
 theme: cactus
 
+# Theme Configs
+theme_config:
+  nav:
+    home: /
+    about: /about/
+    articles: /archives/
+    category: /categories/
+    tag: /tags/
+    search: /search/
+
+  social_links:
+    github: https://github.com/maxlcoder
+    mail: mailto:liurenlin77@gmail.com
+
+  gravatar:
+    email: liurenlin77@gmail.com
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/maxlcoder/maxlcoder.github.io
+  repo: git@github.com:maxlcoder/maxlcoder.github.io.git
