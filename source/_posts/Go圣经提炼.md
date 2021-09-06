@@ -26,7 +26,7 @@ tags:
 ### 声明
 
 标准变量声明
-```
+```go
 var 变量名字 类型 = 表达
 
 // or
@@ -40,7 +40,7 @@ var 变量名字 类型
 > 注意：多次使用简短变量声明声明同名的变量，后面出现的变量实际上仅执行赋值操作，而且多次间断变量声明必须要后续声明中至少存在一个不同名的变量声明，如果都是同名的，则需要更改为赋值操作
 
 指针声明
-```
+```go
 x := 1
 p := &x 
 ```
@@ -83,7 +83,7 @@ slice 的容量是自动扩增的，遵循 2 倍当前容量的方式扩增，�
 
 ### Map
 
-```
+```go
 var m1 map[string]int
 m1 = map[string]int{
     "key": 1,
@@ -106,7 +106,7 @@ m3 := map[string]int{
 map 不支持元素取址操作，map 中的元素是无序的，这个有别于数组和 slice 这种有默认元素下标（0， 1， ...）的类型
 
 map 支持下面的取值操作，通过判断 ok 来确定值是否存在，而不单单判断其零值 
-```
+```go
 if age, ok := ages["bob"]; !ok {
     // ...
 }
@@ -116,7 +116,7 @@ if age, ok := ages["bob"]; !ok {
 ### 结构体
 
 定义
-```
+```go
 type Employee struct {
     ID int
     Name string
@@ -129,7 +129,7 @@ type Employee struct {
 var dilbert Employee
 ```
 使用
-```
+```go
 dilbert.Salary -= 5000
 
 var employeeOfTheMonth *Employee = &dilbert
@@ -144,7 +144,7 @@ employeeOfTheMonth.Position += " (proactive team player)
 
 ### JOSN
 
-```
+```go
 type Movie struct {
     Title string
     Year int `json:"released"`
@@ -178,7 +178,7 @@ type Movie struct {
 ## 接口
 
 接口类型
-```
+```go
 type Reader interface {
     Read(p []byte) (n int, err error)
 }
@@ -187,7 +187,7 @@ type Reader interface {
 
 接口值，是有类型和类型具体的值组成，那么这里的类型就是接口类型，值则是具体的接口（一个接口）。可以理解为类型是一种定义，而值则是实现了这种定义的具体表现。
 
-```
+```go
 var w io.Writer
 w = os.Stdout
 ```
@@ -200,7 +200,7 @@ w = os.Stdout
 
 ### 类型断言
 
-```
+```go
 if f, ok := w.(*os.File); ok {
     // ...
 }
@@ -219,7 +219,42 @@ if f, ok := w.(*os.File); ok {
 * 串联的 Channels (Pipleline)，也就是在 goroutine 中读取前一个 groutine 中写入的 channel 中的值
 * 带缓存的 Channels ，也就是 channel 长度大于 1
 
+
+#### 并发循环
+
+* for range
+* 循环计数器 `sync.WaitGroup`
+```go
+var wg sync.WaitGroup // 声明
+for ... {
+    wg.Add(1) // 计数器 + 1
+    go func(f string) {
+        defer wg.Done() // 完成则减 1
+        ...
+    }
+}
+```
+* 并发拆分（嵌套并发）
+* 基于 select 的多路复用，随机选择一个符合调价的情况执行（一次只能执行一个条件）
+* 关闭 channel 并消费掉已发送的值，会让 channel 操作之后的代码立即执行，这里不论 channel 中是否存值
+
 ## 基于共享变量的并发
+
+### 竞争条件
+无法确认事件的先后顺序，即事件是并发的
+竞争条件指的是程序在多个 goroutine 交叉执行操作时，没有给出正确的结果。
+
+* 串行绑定，将并发线性化
+* 互斥
+* sync.Mutex 互斥锁，同一时刻只允许当前锁区间内的操作
+* sync.RWMutex 读写锁，
+    * RLock，RUlock 锁区间内共享变量不存在任何写入操作，也就是限制写，不限制读
+* sync.Once 初始化，
+
+### 竞争条件检测
+
+### Gotoutines 和线程
+
 
 ## 包和工具
 
