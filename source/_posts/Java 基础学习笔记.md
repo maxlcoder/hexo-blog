@@ -59,6 +59,12 @@ public class MyFirstJavaProgram {
 * boolean
 * char 16bit
 
+归类
+* 整数类型：byte，short，int，long
+* 浮点数类型：float，double
+* 字符类型：char
+* 布尔类型：boolean
+
 #### 引用类型
 * 类的构造函数中定义的变量
 * 类，引用数组
