@@ -1,5 +1,5 @@
 ---
-title: java-learning
+title: Java 基础学习笔记
 date: 2021-09-06 18:40:34
 categories:
 tags:
@@ -58,6 +58,12 @@ public class MyFirstJavaProgram {
 * double 64bit
 * boolean
 * char 16bit
+
+归类
+* 整数类型：byte，short，int，long
+* 浮点数类型：float，double
+* 字符类型：char
+* 布尔类型：boolean
 
 #### 引用类型
 * 类的构造函数中定义的变量
