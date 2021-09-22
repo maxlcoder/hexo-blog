@@ -25,8 +25,19 @@ date: 2021-09-22 17:15:54
 
 ## 步骤
 
-1. 将订单按照指定的结构同步到 Elasticsearch。由于订单结构存在子项，比例一个订单可能有多个商品，因此在
+> 有关 Elasticsearch 的介绍与安装参考其他博文
+
+1. 将订单按照指定的结构同步到 Elasticsearch。
 
 2. API 中对订单的搜索由 Mysql 查询替换为 Elasticsearch 的查询
 
 3. 对查询结果进行数据填充，完成 API
+
+
+## 注意点
+
+### 订单同步
+
+首先要弄清楚 Mysql 中订单表和 Elasticsearch 的中数据结构的关系。Elasticsearch 数据结构由 index 和 document 组成，分别对应了数据库中的表和行。查询数据库中某个表的行记录，可以对应为查询 Elasticsearch 中某个 index 的 document。
+
+项目的订单数据查询，存在关联关系的处理，这点如果完全体现在 Elasticsearch 中将导致查询效率较低，需要针对
