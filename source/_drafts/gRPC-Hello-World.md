@@ -48,4 +48,11 @@ $ go run greeter_client/main.go
 
 ![grpc](https://grpc.io/img/landing-2.svg)
 
-根据 `gRPC` 结构，我们知道需要构建服务端和客户端，前面介绍的 `protocal` 将根据 `.proto` 文件，为我们完成服务端和客户端 `Stub` 的创建，我们只需编写调用这些 `Stub` 来完成相关的需求。
+根据 `gRPC` 结构，我们知道需要构建服务端和客户端，前面介绍的 `protocal` 将根据 `.proto` 文件，为我们完成服务端和客户端 `Stub` 的创建，我们只需编写程序调用这些 `Stub` ，以及服务端的实现逻辑，来完成相关的需求。
+
+
+```
+# 注意这里有些教程是 --go_out=plugins=grpc:. 这种属于过时的操作了
+protoc --go_out=. message.proto
+protoc --go-grpc_out=. message.proto
+```
