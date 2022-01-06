@@ -9,8 +9,8 @@ tags:
 
 ## 前言
 
-Dockerfile 是 docker 镜像的构成文件，直白点就是 docker 根据 Dockerfile 文件来制作用户需要的镜像，通过该镜像来生成容器。
-本文主要介绍 Dockerfile 的详细使用以及使用中需要注意的地方
+`Dockerfile` 是 `docker` 镜像的构成文件，直白点就是 `docker` 根据 `Dockerfile` 文件来制作用户需要的镜像，通过该镜像来生成容器。
+本文主要介绍 `Dockerfile` 的详细使用以及使用中需要注意的地方
 
 ## 实例
 
@@ -45,11 +45,11 @@ world
 ### 解析器指令
 
 Dockerfile 中有一种解析器指令也是以 `#` 开头的，但是格式如下
-```
+```docker
 # directive=value
 ```
 形如上面的注释格式，docker 会把它当作解析器指令处理，解析器指令不允许换行，同时不允许重复，下面的情况是不被允许的
-```
+```docker
 # direc \
 tive=value
 
@@ -102,7 +102,7 @@ FROM ImageName
 
 ### FROM
 
-```
+```docker
 FROM [--platform=<platform>] <image> [AS <name>]
 
 # or
@@ -120,7 +120,7 @@ FROM [--platform=<platform>] <image>[@<digest>] [AS <name>]
 * shell 模式: `RUN <command> `
 * exec 模式: `RUN ["executable", "praram1", "praram2"]` 
 官方默认推荐 exec 模式，RUN 指令是构建镜像过程执行的，也就在对应的镜像层执行一个命令，这个要和后面的 CMD 指令区分开。举例:
-```
+```docker
 RUN yum install -y gcc
 
 RUN ["yum", "install", "-y", "gcc"]  # 推荐用法
@@ -145,11 +145,11 @@ LABEL <key>=<value> <key>=<value> <key>=<value> ...
 
 ### EXPOSE
 
-```
+```docker
 EXPOSE <port> [<port>/<protocol>...]
 ```
 TCP 或 UDP 服务时暴露端口号。
-```
+```docker
 EXPOSE 80/tcp
 EXPOSE 80/udp
 ```
@@ -160,33 +160,33 @@ $ docker run -p 80:80/tcp -p 80:80/udp ...
 `-p [宿主机器端口]:[容器端口]` 将容器的某个端口和宿主机的某个端口进行绑定。当用户访问宿主机端口时，就相当于访问了容器的端口。这用关系由 docker 的内部网络实现。
 
 Dockerfile
-```
+```docker
 FROM nginx:mainline-alpine AS local-nginx
 EXPOSE 80/tcp
 ```
 执行
-```
-docker run -p 8082:80/tcp docker-nginx-start
+```shell
+$ docker run -p 8082:80/tcp docker-nginx-start
 ```
 表示已经将宿主机的 `8082`端口和容器的 `80` 端口进行了绑定，我们访问宿主机的 `8082` 端口就相当于访问了容器的 `80` 端口，所以我们可以通过 `localhost:8082` 访问容器的 nginx 服务。
 
 ### ENV 
-```
+```docker
 ENV <key>=<value> ...
 ```
 设置构建阶段的环境变量。一直持续到容器被创建。在创建容器的时，可以通过指定 `--env` 来对环境变量进行替换
-```
-docker run --env <key>=<value>
+```shell
+$ docker run --env <key>=<value>
 ```
 如果不是全局的环境变量，可以在单行指令中指定环境变零如
-```
+```docker
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y 
 ```
 表示 `DEBIAN_FRONTEND` 进行在当前指令执行时有效，其他时候没有使用到。
 
 ### ADD
 
-```
+```docker
 ADD [--chown=<user>:<group>] <src>... <dest>
 ADD [--chown=<user>:<group>] ["<src>",... "<dest>"]
 ```
@@ -194,7 +194,7 @@ ADD [--chown=<user>:<group>] ["<src>",... "<dest>"]
 
 ### COPY
 
-```
+```docker
 COPY [--chown=<user>:<group>] <src>... <dest>
 COPY [--chown=<user>:<group>] ["<src>",... "<dest>"]
 ```
@@ -210,13 +210,13 @@ ENTRYPOINT 指令只运行一个，当存在多个时，后面的会覆盖前面
 
 ### VOLUME
 
-```
+```docker
 VOLUME ["/data"]
 ```
 指定存储挂载卷
 
 ### USER
-```
+```docker
 USER <user>[:<group>]
 # or
 USER <UID>[:<GID>]
@@ -225,14 +225,14 @@ USER <UID>[:<GID>]
 
 ### WORKDIR
 
-```
+```docker
 WORKDIR /path/to/workdir
 ```
 指定运行 RUN，CMD，ENTRYPOINT 的运行目录
 
 ### ARG
 
-```
+```docker
 ARG <name>[=<default value>]
 ```
 
@@ -241,7 +241,7 @@ ARG <name>[=<default value>]
 
 ### ONBUILD
 
-```
+```docker
 ONBUILD ADD . /app/src
 ONBUILD RUN /usr/local/bin/python-build --dir /app/src
 ```
@@ -249,14 +249,14 @@ ONBUILD RUN /usr/local/bin/python-build --dir /app/src
 
 ### STOPSIGNAL
 
-```
+```docker
 STOPSIGNAL signal
 ```
 定义退出容器的系统信号
 
 ### HEALTHCHECK
 
-```
+```docker
 HEALTHCHECK --interval=5m --timeout=3s \
   CMD curl -f http://localhost/ || exit 1
 ```
@@ -265,7 +265,7 @@ HEALTHCHECK --interval=5m --timeout=3s \
 
 ### SHELL
 
-```
+```docker
 SHELL ["executable", "parameters"]
 ```
 
